@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  border: solid black;
+  height: 900px;
+  width: 900px;
+}
+
+.c-style {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.square {
+  flex-grow: 1;
+  border: solid black;
+}
