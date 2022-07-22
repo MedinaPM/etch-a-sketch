@@ -33,8 +33,42 @@ function createSquares(i) {
 //squares colored on mouseover
 function play() {
   let squares = document.querySelectorAll("div.square");
-  //
+
   squares.forEach(square => square.addEventListener('mouseover', function(e) {
-    e.target.style.backgroundColor = 'black';
-  }))
+    if (square.classList.length <= 11) {
+      e.target.classList.add(square.classList.length)
+    };
+    square.style.backgroundColor = getColor(
+      square.style.backgroundColor, square.classList[(square.classList.length - 1)]
+    )
+  }));
+}
+
+//color picking based on iteration
+function getColor(fill, iter) {
+  if (iter == 1) {
+    return randomRGB();
+  } else if (iter >= 11) {
+    return `rgb(0, 0, 0)`;
+  } else {
+    return shade(fill, iter);
+  }
+}
+//
+function randomRGB() {
+  let red = Math.floor(Math.random() * 256);
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+//shade 10% if square has a color
+function shade(fill, iter) {
+  let array = fill.replace(/[^0-9,]/g, '').split(',');
+  let n = (iter - 1) / 10;
+  let red = (array[0] / (1.1 - n)) * (1 - n);
+  let green = (array[1] / (1.1 - n)) * (1 - n);
+  let blue = (array[2] / (1.1 - n)) * (1 - n);
+
+  return `rgb(${red}, ${green}, ${blue})`;
 }
